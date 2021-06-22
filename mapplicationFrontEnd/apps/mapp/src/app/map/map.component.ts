@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
-import { MapService } from './map.service';
 import { Observable } from 'rxjs';
+import { LocationModel } from './location.model';
+import { Store } from '@ngrx/store';
+import { retrieveLocation } from './state/map.actions';
 
 @Component({
   selector: 'mapp-map',
@@ -12,12 +14,14 @@ import { Observable } from 'rxjs';
 })
 export class MapComponent {
 
-  location$!: Observable<any>;
+  location$: Observable<LocationModel>;
 
-  constructor(private _mapService: MapService) { }
+  constructor(private _store: Store<{ map: LocationModel }>) {
+    this.location$ = _store.select(state => state.map);
+  }
 
   getLocation() {
-    this.location$ = this._mapService.getLocation();
+    this._store.dispatch(retrieveLocation());
   }
 
 }

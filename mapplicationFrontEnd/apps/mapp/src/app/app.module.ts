@@ -7,6 +7,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { MaterialModule } from '@mapp/material';
 import { MapComponent } from './map/map.component';
 import { HttpClientModule } from '@angular/common/http';
+import { StoreModule } from '@ngrx/store';
+import { mapReducer } from './map/state/map.reducer';
+import { EffectsModule } from '@ngrx/effects';
+import { MapEffects } from './map/state/map.effects';
 
 @NgModule({
   declarations: [AppComponent, MapComponent],
@@ -15,9 +19,10 @@ import { HttpClientModule } from '@angular/common/http';
     BrowserAnimationsModule,
     AppRoutingModule,
     MaterialModule,
-    HttpClientModule
+    HttpClientModule,
+    StoreModule.forRoot({map: mapReducer}),
+    EffectsModule.forRoot([MapEffects])
   ],
-  providers: [],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
