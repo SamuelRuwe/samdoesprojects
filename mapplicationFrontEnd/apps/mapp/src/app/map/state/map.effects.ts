@@ -15,8 +15,10 @@ export class MapEffects {
     ofType(retrieveLocation),
     switchMap(() => this._mapService.getLocation()
       .pipe(
-        map(location => retrieveLocationSuccess({LocationModel: location})
-        )
+        map(location => {
+          console.log(location);
+          return retrieveLocationSuccess({LocationModel: location})
+        })
       )
     )
   ));
